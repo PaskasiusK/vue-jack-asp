@@ -13,8 +13,6 @@ using Microsoft.AspNetCore.Cors;
 namespace APICSarp.Controllers
 {
     // route
-
-    [EnableCors("AllowOrigin")]
     [Route("[controller]")]
     [ApiController]
     public class KomentarController : ControllerBase
@@ -28,13 +26,12 @@ namespace APICSarp.Controllers
             _env = env;
         }
         [HttpGet]
-        public string Get()
+        public JsonResult Get()
         {
             string query = @"
                 SELECT * FROM komentar
             ";
             DataTable table = new DataTable();
-            string tabletext = "";
             string sqlDataSource = _configuration.GetConnectionString("DBConn");
             NpgsqlDataReader myReader;
             using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
@@ -48,7 +45,7 @@ namespace APICSarp.Controllers
                     myCon.Close();
                 }
             }
-            return JsonConvert.SerializeObject(table); 
+            return new JsonResult(table);
         }
         [HttpPost]
         public JsonResult Post(Komentar k)

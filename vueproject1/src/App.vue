@@ -25,7 +25,7 @@
                         <th>Komentar</th>
                     </tr>
                 </thead>
-                {{ komentars }}
+           
                 <tbody v-for="k in komentars" v-bind:key="k">
                     <tr>
                         <td>{{ k.nama }}</td>
@@ -34,24 +34,39 @@
                 </tbody>
             </table>
         </div>
+        <BitcoinCard v-bind:currency="currency" />
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import BitcoinCard from '@/components/BitcoinCard.vue'
     export default {
         name: 'App',
         components: {
+            BitcoinCard
         },
         data() {
             return {
-                komentars: false
+                komentars: false,
+                currency: ''
             }
         },
-        mounted() {
-            axios.get('https://localhost:5001/komentar/')
-                .then(response => (this.komentars = response))
-        }
+        methods: {
+            refreshData() {
+                axios.get('https://localhost:5001/komentar/')
+                    .then((response) => {
+                        this.komentars = response.data;
+                    });
+              
+            },
+        },
+        mounted: function () {
+            this.refreshData();
+            axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+                .then(response => (this.currency = response.data.bpi))
+        },
+      
     }
 </script>
 
