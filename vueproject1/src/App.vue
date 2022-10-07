@@ -43,6 +43,7 @@
     import BitcoinCard from '@/components/BitcoinCard.vue'
     import 'sweetalert2/dist/sweetalert2.min.css';
     import 'sweetalert2/dist/sweetalert2.min.js';
+    import Swal from 'sweetalert2';
     export default {
         name: 'App',
         components: {
@@ -66,7 +67,15 @@
             },
             komen() {
                 if(this.nama == '' || this.komentar == ''){
-                    alert('Hello Vue world!!!');
+                    Swal.fire('Komentar atau Nama Kosong!','Input Kosong','error');
+                }else{
+                    axios.post("https://localhost:5001/komentar/", {
+                        nama: this.nama,
+                        komentar: this.komentar
+                    }).then((response) => {
+                        this.refreshData();
+                        Swal.fire(response.data,'Sukses','success');
+                    });
                 }
             },
         },
