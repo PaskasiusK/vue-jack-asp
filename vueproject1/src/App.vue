@@ -5,15 +5,15 @@
         <br />
         <div class="container py-5">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Masukkan Nama">
+                <input type="text" class="form-control" v-model="nama" id="floatingInput" placeholder="Masukkan Nama">
                 <label for="floatingInput">Nama</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingKomentar" placeholder="Masukkan Komentar">
+                <input type="text" class="form-control" v-model="komentar" id="floatingKomentar" placeholder="Masukkan Komentar">
                 <label for="floatingKomentar">Komentar</label>
             </div><br />
             <div class="d-flex justify-content-left">
-                <a href="#" class="btn btn-primary btn-large rextras"><span class="glyphicon glyphicon-send"></span> Kirim!</a>
+                <a href="#" @click="komen" class="btn btn-primary btn-large rextras"><span class="glyphicon glyphicon-send"></span> Kirim!</a>
             </div>
         </div><br />
         <div class="container py-5 card rounded">
@@ -41,6 +41,8 @@
 <script>
     import axios from 'axios'
     import BitcoinCard from '@/components/BitcoinCard.vue'
+    import 'sweetalert2/dist/sweetalert2.min.css';
+    import 'sweetalert2/dist/sweetalert2.min.js';
     export default {
         name: 'App',
         components: {
@@ -49,7 +51,9 @@
         data() {
             return {
                 komentars: false,
-                currency: ''
+                currency: '',
+                nama: '',
+                komentar: ''
             }
         },
         methods: {
@@ -59,6 +63,11 @@
                         this.komentars = response.data;
                     });
               
+            },
+            komen() {
+                if(this.nama == '' || this.komentar == ''){
+                    alert('Hello Vue world!!!');
+                }
             },
         },
         mounted: function () {
