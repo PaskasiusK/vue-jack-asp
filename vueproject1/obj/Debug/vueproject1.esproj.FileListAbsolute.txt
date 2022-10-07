@@ -1,0 +1,2 @@
+C:\xampp\htdocs\Vue Learn\vueproject1\vueproject1\obj\Debug\vueproject1.esproj.SuggestedBindingRedirects.cache
+C:\xampp\htdocs\Vue Learn\vueproject1\vueproject1\obj\Debug\vueproject1.esproj.CoreCompileInputs.cache
